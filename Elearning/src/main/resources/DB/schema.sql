@@ -1,0 +1,39 @@
+CREATE TABLE user(
+userId INT AUTO_INCREMENT PRIMARY KEY
+username VARCHAR(123) NOT NULL UNIQUE,
+password VARCHAR(220) NOT NULL,
+name VARCHAR(129) NOT NULL,
+surname VARCHAR(129) NOT NULL,
+email VARCHAR(129) NOT NULL,
+registration_date DATE NOT NULL,
+details VARCHAR(1024)
+);
+
+CREATE TABLE tutor(
+tutorId INT AUTO_INCREMENT PRIMARY KEY
+username VARCHAR(129) NOT NULL UNIQUE,
+name VARCHAR(128) NOT NULL,
+surname VARCHAR(128) NOT NULL,
+email VARCHAR(128) NOT NULL,
+description VARCHAR(256) NOT NULL,
+detail VARCHAR(1024)
+);
+CREATE TABLE course (
+  courseId BIGINT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(128) NOT NULL UNIQUE,
+  description VARCHAR(256) NOT NULL,
+  detail VARCHAR(1024) NOT NULL ,
+  difficulty VARCHAR(128) NOT NULL,
+  tutorId BIGINT NOT NULL,
+  url VARCHAR(1024) NOT NULL ,
+  CONSTRAINT course_fk FOREIGN KEY(tutorId) REFERENCES tutor(tutorId)
+);
+
+CREATE TABLE enrollment (
+    enrollmentId BIGINT AUTO_INCREMENT PRIMARY KEY,
+    userId BIGINT NOT NULL,
+    courseId BIGINT NOT NULL,
+    date DATE NOT NULL,
+    CONSTRAINT enrollment_user_fk FOREIGN KEY(userId) REFERENCES user(userId),
+    CONSTRAINT enrollment_course_fk FOREIGN KEY(courseId) REFERENCES cocurse(courseId)
+);
